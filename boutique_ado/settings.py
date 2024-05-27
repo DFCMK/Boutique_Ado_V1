@@ -16,6 +16,13 @@ import dj_database_url
 if os.path.isfile('env.py'):
     import env
 
+# Added for temporary Workaround 'BlankChoiceIterator' object has no attribute '__len__' bug
+from django_countries.widgets import LazyChoicesMixin
+
+# # Added for temporary Workaround 'BlankChoiceIterator' object has no attribute '__len__' bug
+LazyChoicesMixin.get_choices = lambda self: self._choices
+LazyChoicesMixin.choices = property(LazyChoicesMixin.get_choices, LazyChoicesMixin.set_choices)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
