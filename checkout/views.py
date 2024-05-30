@@ -175,3 +175,17 @@ def checkout_success(request, order_number):
     }
 
     return render(request, template, context)
+
+
+# Test email view
+# from django.core.mail import send_mail
+# from django.http import HttpResponse
+# def send_test_email(request):
+#    send_mail(
+#        'Test Subject',
+#        'This is a test message.',
+#        'from@example.com',
+#        ['to@example.com'],
+#        fail_silently=False,
+#    )
+#    return HttpResponse('Email sent!')
