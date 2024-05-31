@@ -10,8 +10,25 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+from pathlib import Path
 import os
+import sys
 import dj_database_url
+if os.path.isfile('env.py'):
+    import env
+
+
+
+
+# Added as temporary workaround the: 
+# AttributeError: 'BlankChoiceIterator' object has no attribute '__len__' "
+
+from django_countries.widgets import LazyChoicesMixin
+
+LazyChoicesMixin.get_choices = lambda self: self._choices
+LazyChoicesMixin.choices = property(LazyChoicesMixin.get_choices, LazyChoicesMixin.set_choices)
+
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,11 +38,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'DEVELOPMENT' in os.environ
-
+# DEBUG = 'DEVELOPMENT' in os.environ
+DEBUG = True
 ALLOWED_HOSTS = [
     'boutique-ado-v42-9e9cc85f21b1.herokuapp.com', 
     'localhost',
@@ -54,6 +71,7 @@ INSTALLED_APPS = [
 
     # Other
     'crispy_forms',
+    'crispy_bootstrap4',
     'storages',
 ]
 
